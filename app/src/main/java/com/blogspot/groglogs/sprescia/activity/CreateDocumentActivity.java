@@ -52,7 +52,7 @@ public class CreateDocumentActivity extends AppCompatActivity {
     private void createDocument() {
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.setType("text/csv");
-        intent.putExtra(Intent.EXTRA_TITLE, "maicar_export_" +
+        intent.putExtra(Intent.EXTRA_TITLE, "sprescia_export_" +
                 LocalDateTime.now().toString() +
                 ".csv");
 
