@@ -36,4 +36,8 @@ public interface RunDao {
     @Transaction
     @Query("SELECT * FROM run ORDER BY date DESC")
     List<RunItem> getAllItemsByDateDesc();
+
+    @Transaction
+    @Query("SELECT * FROM run ORDER BY date ASC")
+    List<RunItem> getAllItemsByDateAsc();
 }

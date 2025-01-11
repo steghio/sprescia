@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.activity.CreateDocumentActivity;
+import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
@@ -18,7 +19,6 @@ public class RunViewItem extends AbstractViewItem {
     private double km;
     private int hours;
     private int minutes;
-    private double kmh;
     private LocalDate date;
 
     public RunViewItem(Long id, double km, int hours, int minutes, LocalDate date){
@@ -27,10 +27,9 @@ public class RunViewItem extends AbstractViewItem {
         this.hours = hours;
         this.minutes = minutes;
         this.date = date;
-        this.kmh = calculateKmH();
     }
 
-    private double calculateKmH(){
+    private double getKmh(){
         return km / (hours + ((double) minutes / 60));
     }
 
@@ -61,7 +60,6 @@ public class RunViewItem extends AbstractViewItem {
         km = in.readDouble();
         hours = in.readInt();
         minutes = in.readInt();
-        kmh = calculateKmH();
         date = LocalDate.ofEpochDay(in.readLong());
     }
 

@@ -25,19 +25,19 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import lombok.Getter;
 
+//todo no need can be a normal fragment
 public abstract class AbstractFragment extends Fragment {
     //todo better than this, used in read document activity for import
     @Getter
     protected static AbstractAdapter adapter;
 
-    //todo better way to indicate which adapter we need
-    protected View buildView(LayoutInflater inflater, ViewGroup container, boolean isRun){
+    protected View buildView(LayoutInflater inflater, ViewGroup container){
         View view = inflater.inflate(R.layout.fragment, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false));
 
-        adapter = isRun ? new RunAdapter(getActivity().getApplication(), recyclerView) : new StatsAdapter(getActivity().getApplication(), recyclerView);
+        adapter = new RunAdapter(getActivity().getApplication(), recyclerView);
         recyclerView.setAdapter(adapter);
 
         //divider between items in view

@@ -16,6 +16,6 @@ public class RunFragment extends AbstractFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return buildView(inflater, container, true);
+        return buildView(inflater, container);
     }
 }

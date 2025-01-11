@@ -15,5 +15,5 @@
         android:id="@+id/navigation_stats"
         android:name="com.blogspot.groglogs.sprescia.ui.stats.StatsFragment"
         android:label="@string/title_stats"
-        tools:layout="@layout/fragment" />
+        tools:layout="@layout/stats" />
 </navigation>
