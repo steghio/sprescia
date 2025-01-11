@@ -71,7 +71,7 @@ public class ReadDocumentActivity extends AppCompatActivity {
 
             RunViewItem item = RunViewItem.fromCsv(line);
 
-            RunItem f = new RunItem(item.getKm(), item.getHours(), item.getMinutes(), item.getDate());
+            RunItem f = new RunItem(item.getKm(), item.getSteps(), item.getHours(), item.getMinutes(), item.getDate());
 
             RunFragment.getAdapter().saveEntity(f);
         }

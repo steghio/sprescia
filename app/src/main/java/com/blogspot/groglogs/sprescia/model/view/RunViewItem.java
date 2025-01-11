@@ -10,24 +10,19 @@ import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
+@AllArgsConstructor
 @Data
 public class RunViewItem extends AbstractViewItem {
 
     private Long id;
     private double km;
+    private int steps;
     private int hours;
     private int minutes;
     private LocalDate date;
-
-    public RunViewItem(Long id, double km, int hours, int minutes, LocalDate date){
-        this.id = id;
-        this.km = km;
-        this.hours = hours;
-        this.minutes = minutes;
-        this.date = date;
-    }
 
     public double getKmh(){
         return km / (hours + ((double) minutes / 60));
@@ -35,6 +30,10 @@ public class RunViewItem extends AbstractViewItem {
 
     public float getTimeAsDecimal(){
         return hours + (float) minutes / 100;
+    }
+
+    public int getStepsIconResId(){
+        return R.drawable.ic_footsteps_24dp;
     }
 
     public int getKmIconResId(){
@@ -54,6 +53,7 @@ public class RunViewItem extends AbstractViewItem {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
         dest.writeDouble(km);
+        dest.writeInt(steps);
         dest.writeInt(hours);
         dest.writeInt(minutes);
         dest.writeLong(date.toEpochDay());
@@ -62,6 +62,7 @@ public class RunViewItem extends AbstractViewItem {
     protected RunViewItem(Parcel in) {
         id = in.readLong();
         km = in.readDouble();
+        steps = in.readInt();
         hours = in.readInt();
         minutes = in.readInt();
         date = LocalDate.ofEpochDay(in.readLong());
@@ -82,6 +83,7 @@ public class RunViewItem extends AbstractViewItem {
     public String toCsv(){
         return id + CreateDocumentActivity.CSV_SEPARATOR +
                 km + CreateDocumentActivity.CSV_SEPARATOR +
+                steps + CreateDocumentActivity.CSV_SEPARATOR +
                 hours + CreateDocumentActivity.CSV_SEPARATOR +
                 minutes + CreateDocumentActivity.CSV_SEPARATOR +
                 date.toString() + "\n";
@@ -94,7 +96,8 @@ public class RunViewItem extends AbstractViewItem {
                 Double.parseDouble(split[1]),
                 Integer.parseInt(split[2]),
                 Integer.parseInt(split[3]),
-                DateTimeUtils.fromString(split[4])
+                Integer.parseInt(split[4]),
+                DateTimeUtils.fromString(split[5])
         );
     }
 }

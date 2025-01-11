@@ -14,7 +14,7 @@ import com.blogspot.groglogs.sprescia.ui.stats.StatsAdapter;
 
 import lombok.AllArgsConstructor;
 
-//todo buttons for averages per month view
+//todo buttons for averages per month view (avg per month)
 @AllArgsConstructor
 public class StatsTopMenu implements MenuProvider {
 
@@ -41,6 +41,10 @@ public class StatsTopMenu implements MenuProvider {
         } else if (id == R.id.action_time) {
             Toast.makeText(context, "MENU TIME", Toast.LENGTH_SHORT).show();
             adapter.showTimeChart();
+            return true;
+        } else if (id == R.id.action_steps) {
+            Toast.makeText(context, "MENU STEPS", Toast.LENGTH_SHORT).show();
+            adapter.showStepsChart();
             return true;
         }
         return false;

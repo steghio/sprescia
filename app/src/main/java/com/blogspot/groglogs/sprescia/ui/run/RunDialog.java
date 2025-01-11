@@ -26,6 +26,7 @@ public class RunDialog extends AbstractDialog {
         this.id = f.getId();
         this.position = position;
 
+        this.editTextSteps.setText(String.valueOf(f.getSteps()));
         this.editTextKm.setText(String.valueOf(f.getKm()));
 
         this.addDatePicker(context, f.getDate());
@@ -35,11 +36,19 @@ public class RunDialog extends AbstractDialog {
     public View.OnClickListener getSubmitButtonWithValidation(AlertDialog d, boolean isUpdate){
         return v -> {
             double km = -1;
+            int steps = 0;
             int hours = 0;
             int minutes = 0;
             LocalDate date = null;
 
             boolean isError = false;
+
+            try {
+                steps = this.getSteps();
+            } catch (NumberFormatException e) {
+                this.editTextSteps.setError("Please enter a positive value for Steps");
+                isError = true;
+            }
 
             try {
                 km = this.getKm();
@@ -74,7 +83,7 @@ public class RunDialog extends AbstractDialog {
                         Toast.makeText(d.getContext(), "Error update row with no ID!", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        RunItem i = new RunItem(km, hours, minutes, date);
+                        RunItem i = new RunItem(km, steps, hours, minutes, date);
                         i.setId(this.id);
                         adapter.updateEntity(i, this.position);
 
@@ -82,7 +91,7 @@ public class RunDialog extends AbstractDialog {
                     }
                 }
                 else{
-                    RunItem i = new RunItem(km, hours, minutes, date);
+                    RunItem i = new RunItem(km, steps, hours, minutes, date);
                     adapter.saveEntityAndRefreshView(i);
 
                     Toast.makeText(d.getContext(), "Run added", Toast.LENGTH_SHORT).show();

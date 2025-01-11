@@ -49,19 +49,11 @@ public class StatsAdapter {
             throw new RuntimeException(e);
         }
 
-        float[] values = new float[entities.size()];
-        String[] labels = new String[entities.size()];
-
-        for(int i = 0; i < entities.size(); i++){
-            RunItem e = entities.get(i);
-
-            items.add(new RunViewItem(e.getId(), e.getKm(), e.getHours(), e.getMinutes(), e.getDate()));
-
-            values[i] = (float) e.calculateKmH();
-            labels[i] = e.getDate().toString();
+        for(RunItem e : entities){
+            items.add(new RunViewItem(e.getId(), e.getKm(), e.getSteps(), e.getHours(), e.getMinutes(), e.getDate()));
         }
 
-        setChartDataAndRefresh(BarChartType.SPEED, values, labels);
+        showStepsChart();
     }
 
     public void setChartDataAndRefresh(BarChartType barChartType, float[] values, String[] labels){
@@ -111,5 +103,19 @@ public class StatsAdapter {
         }
 
         setChartDataAndRefresh(BarChartType.TIME, values, labels);
+    }
+
+    public void showStepsChart(){
+        float[] values = new float[items.size()];
+        String[] labels = new String[items.size()];
+
+        for(int i = 0; i < items.size(); i++){
+            RunViewItem e = items.get(i);
+
+            values[i] = e.getSteps();
+            labels[i] = e.getDate().toString();
+        }
+
+        setChartDataAndRefresh(BarChartType.STEPS, values, labels);
     }
 }

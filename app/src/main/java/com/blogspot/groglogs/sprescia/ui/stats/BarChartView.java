@@ -11,7 +11,6 @@ import com.blogspot.groglogs.sprescia.util.StringUtils;
 
 import lombok.Setter;
 
-//todo draw horizontal and not vertical, then display desc
 public class BarChartView extends View {
 
     private Paint barPaint;

@@ -21,6 +21,7 @@ public abstract class AbstractDialog {
     protected final View dialogView;
     protected long id;
     protected int position;
+    protected final EditText editTextSteps;
     protected final EditText editTextKm;
     protected final EditText editTextDate;
     protected final EditText editTextTime;
@@ -34,11 +35,16 @@ public abstract class AbstractDialog {
 
         this.dialogView = layoutInflater.inflate(dialog, null);
 
+        this.editTextSteps = dialogView.findViewById(R.id.editTextSteps);
         this.editTextKm = dialogView.findViewById(R.id.editTextKm);
         this.editTextDate = dialogView.findViewById(R.id.editTextDate);
         this.editTextTime = dialogView.findViewById(R.id.editTextTime);
 
         this.adapter = adapter;
+    }
+
+    public int getSteps(){
+        return Integer.parseInt(this.editTextSteps.getText().toString());
     }
 
     public double getKm(){

@@ -22,6 +22,9 @@ public class RunItem {
     @ColumnInfo(name = "km")
     private final double km;
 
+    @ColumnInfo(name = "steps")
+    private final int steps;
+
     @ColumnInfo(name = "hours")
     private final int hours;
 

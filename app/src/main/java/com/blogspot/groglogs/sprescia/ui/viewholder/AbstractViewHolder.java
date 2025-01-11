@@ -16,6 +16,8 @@ import lombok.Getter;
 public class AbstractViewHolder extends RecyclerView.ViewHolder {
     protected final ImageView kmIconImageView;
     protected final TextView kmTextView;
+    protected final ImageView stepsIconImageView;
+    protected final TextView stepsTextView;
     protected final ImageView timeIconImageView;
     protected final TextView timeTextView;
     protected final TextView dateTextView;
@@ -24,6 +26,8 @@ public class AbstractViewHolder extends RecyclerView.ViewHolder {
 
     public AbstractViewHolder(@NonNull View itemView) {
         super(itemView);
+        this.stepsIconImageView = itemView.findViewById(R.id.stepsIconImageView);
+        this.stepsTextView = itemView.findViewById(R.id.stepsTextView);
         this.kmIconImageView = itemView.findViewById(R.id.kmIconImageView);
         this.kmTextView = itemView.findViewById(R.id.kmTextView);
         this.timeIconImageView = itemView.findViewById(R.id.timeIconImageView);

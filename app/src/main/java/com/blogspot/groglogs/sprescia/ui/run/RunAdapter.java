@@ -30,8 +30,6 @@ import lombok.Getter;
 
 public class RunAdapter extends AbstractAdapter<RunViewHolder> {
 
-    public static final String ACTIVITY_TYPE = "FUEL";
-
     @Getter
     private List<RunViewItem> items;
 
@@ -61,6 +59,8 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull RunViewHolder holder, int position) {
         RunViewItem item = items.get(position);
+        holder.getStepsIconImageView().setImageResource(item.getStepsIconResId());
+        holder.getStepsTextView().setText(String.valueOf(item.getSteps()));
         holder.getKmIconImageView().setImageResource(item.getKmIconResId());
         holder.getKmTextView().setText(StringUtils.decimal2String2Precision(item.getKm()) + " km");
         holder.getTimeIconImageView().setImageResource(item.getTimeIconResId());
@@ -189,13 +189,13 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
             loadAllItems();
         }
         else{
-            items.set(position, new RunViewItem(entity.getId(), entity.getKm(), entity.getHours(), entity.getMinutes(), entity.getDate()));
+            items.set(position, new RunViewItem(entity.getId(), entity.getKm(), entity.getSteps(), entity.getHours(), entity.getMinutes(), entity.getDate()));
             recyclerView.post(() -> notifyItemChanged(position));
         }
     }
 
     public void addEntity(RunItem entity) {
-        items.add(new RunViewItem(entity.getId(), entity.getKm(), entity.getHours(), entity.getMinutes(), entity.getDate()));
+        items.add(new RunViewItem(entity.getId(), entity.getKm(), entity.getSteps(), entity.getHours(), entity.getMinutes(), entity.getDate()));
         recyclerView.post(() -> notifyItemInserted(items.size() - 1));
     }
 
