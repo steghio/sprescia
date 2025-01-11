@@ -61,7 +61,55 @@ public class StatsAdapter {
             labels[i] = e.getDate().toString();
         }
 
+        setChartDataAndRefresh(BarChartType.SPEED, values, labels);
+    }
+
+    public void setChartDataAndRefresh(BarChartType barChartType, float[] values, String[] labels){
+        barChartView.setBarChartType(barChartType);
         barChartView.setValues(values);
         barChartView.setLabels(labels);
+        barChartView.invalidate();
+    }
+
+    public void showSpeedChart(){
+        float[] values = new float[items.size()];
+        String[] labels = new String[items.size()];
+
+        for(int i = 0; i < items.size(); i++){
+            RunViewItem e = items.get(i);
+
+            values[i] = (float) e.getKmh();
+            labels[i] = e.getDate().toString();
+        }
+
+        setChartDataAndRefresh(BarChartType.SPEED, values, labels);
+    }
+
+    public void showDistChart(){
+        float[] values = new float[items.size()];
+        String[] labels = new String[items.size()];
+
+        for(int i = 0; i < items.size(); i++){
+            RunViewItem e = items.get(i);
+
+            values[i] = (float) e.getKm();
+            labels[i] = e.getDate().toString();
+        }
+
+        setChartDataAndRefresh(BarChartType.DISTANCE, values, labels);
+    }
+
+    public void showTimeChart(){
+        float[] values = new float[items.size()];
+        String[] labels = new String[items.size()];
+
+        for(int i = 0; i < items.size(); i++){
+            RunViewItem e = items.get(i);
+
+            values[i] = e.getTimeAsDecimal();
+            labels[i] = e.getDate().toString();
+        }
+
+        setChartDataAndRefresh(BarChartType.TIME, values, labels);
     }
 }

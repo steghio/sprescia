@@ -11,82 +11,104 @@ import com.blogspot.groglogs.sprescia.util.StringUtils;
 
 import lombok.Setter;
 
-//todo button to change stat displayed
 public class BarChartView extends View {
 
     private Paint barPaint;
+    private Paint greenBarPaint;
+    private Paint redBarPaint;
     private Paint textPaint;
 
+    @Setter
+    private BarChartType barChartType;
     @Setter
     private float[] values;
     @Setter
     private String[] labels;
-    private int bottomNavigationHeight = 0; // Height of the bottom navigation menu
+    @Setter
+    private int bottomNavigationHeight;
 
     public BarChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.bottomNavigationHeight = 0;
         init();
     }
 
     private void init() {
-        // Paint for bars
         barPaint = new Paint();
         barPaint.setColor(Color.BLUE);
         barPaint.setStyle(Paint.Style.FILL);
 
-        // Paint for text
+        greenBarPaint = new Paint();
+        greenBarPaint.setColor(Color.GREEN);
+        greenBarPaint.setStyle(Paint.Style.FILL);
+
+        redBarPaint = new Paint();
+        redBarPaint.setColor(Color.RED);
+        redBarPaint.setStyle(Paint.Style.FILL);
+
         textPaint = new Paint();
         textPaint.setColor(Color.BLACK);
-        textPaint.setTextSize(50f); // Increase text size for better visibility
-        textPaint.setTextAlign(Paint.Align.CENTER); // Center align text
-    }
-
-    // Method to set the bottom navigation menu height
-    public void setBottomNavigationHeight(int height) {
-        this.bottomNavigationHeight = height;
-        invalidate(); // Redraw the view when the height is set
+        textPaint.setTextSize(40f);
+        textPaint.setTextAlign(Paint.Align.CENTER);
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float barWidth = getWidth() / (values.length * 2f); // Space for each bar
-        float maxHeight = getHeight() * 0.6f; // Reserve 60% of the height for bars
-        float maxValue = getMaxValue(values); // Get the maximum value in the dataset
+        float barWidth = getWidth() / (values.length * 2f); //space for each bar
+        float maxHeight = getHeight() * 0.6f; //reserve 60% of the height for bars
+        float maxValue = getMaxValue(values); //get the maximum value in the dataset
 
-        // Calculate the height available for drawing, considering the bottom navigation
-        float reservedBottomSpace = bottomNavigationHeight + 100; // 100 for labels and padding
+        //calculate the height available for drawing, considering the bottom navigation
+        float reservedBottomSpace = bottomNavigationHeight + 100; //spece for labels and padding
         float chartBottom = getHeight() - reservedBottomSpace;
 
         for (int i = 0; i < values.length; i++) {
-            // Calculate bar dimensions
+            //calculate bar dimensions
             float left = i * 2 * barWidth + barWidth / 4;
-            float top = chartBottom - ((values[i] / maxValue) * maxHeight); // Top of the bar
             float right = left + barWidth;
-            float bottom = chartBottom; // Bottom of the bar
+            float top = chartBottom - ((values[i] / maxValue) * maxHeight); //top of the bar
+            //bottom is already set by the caller considering the navigation menu space
 
-            // Draw the bar
-            canvas.drawRect(left, top, right, bottom, barPaint);
+            Paint paint = barPaint;
+            if(i > 0) {
+                if (values[i - 1] < values[i]) {
+                    paint = greenBarPaint;
+                } else if (values[i - 1] > values[i]) {
+                    paint =  redBarPaint;
+                }
+            }
 
-            // Draw the value on top of the bar
-            float textX = left + barWidth / 2; // Center the text on the bar
-            float textY = top - 20; // Position the text slightly above the bar
-            canvas.drawText(StringUtils.decimal2String2Precision((double) values[i]) + " km/h", textX, textY, textPaint);
+            canvas.drawRect(left, top, right, chartBottom, paint);
 
-            // Draw the label below the bar
-            textX = left + barWidth / 2; // Center of the bar
-            textY = getHeight() - bottomNavigationHeight - 50; // Adjust position below the bar
+            //top of bar label (value)
+            float textX = left + barWidth / 2; //center the text on the bar
+            float textY = top - 20; //position the text slightly above the bar
+            String label = "";
+            switch (barChartType){
+                case SPEED -> label = " km/h";
+                case DISTANCE -> label = " km";
+                case TIME -> label = " hours";
+            }
+
+            canvas.drawText(StringUtils.decimal2String2Precision(values[i]) + label, textX, textY, textPaint);
+
+            //bottom of bar label
+            textX = left + barWidth / 2; //center the text on the bar
+            textY = getHeight() - bottomNavigationHeight - 50; //position the text slightly below the bar, considering bottom menu
+
             canvas.drawText(labels[i], textX, textY, textPaint);
         }
     }
 
-    // Helper method to get the maximum value from the dataset
     private float getMaxValue(float[] values) {
         float max = Float.MIN_VALUE;
+
         for (float value : values) {
             if (value > max) max = value;
         }
+
         return max;
     }
 }

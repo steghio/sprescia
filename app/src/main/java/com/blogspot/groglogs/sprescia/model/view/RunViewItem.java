@@ -29,8 +29,12 @@ public class RunViewItem extends AbstractViewItem {
         this.date = date;
     }
 
-    private double getKmh(){
+    public double getKmh(){
         return km / (hours + ((double) minutes / 60));
+    }
+
+    public float getTimeAsDecimal(){
+        return hours + (float) minutes / 100;
     }
 
     public int getKmIconResId(){

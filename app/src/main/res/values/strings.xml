@@ -12,4 +12,7 @@
     <string name="desc_delete">delete</string>
     <string name="menu_import">Import</string>
     <string name="menu_export">Export</string>
+    <string name="menu_speed">Speed</string>
+    <string name="menu_dist">Distance</string>
+    <string name="menu_time">Time</string>
 </resources>
