@@ -54,6 +54,16 @@ public class BarChartView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        //calculate height based on the number of bars and bar height
+        int desiredHeight = values.length * 150; //include gaps between bars
+        int height = resolveSize(desiredHeight, heightMeasureSpec);
+
+        //set measured dimensions
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), height);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
@@ -67,7 +77,7 @@ public class BarChartView extends View {
 
         for (int i = 0; i < values.length; i++) {
             //calculate bar dimensions
-            float top = i * 2 * barHeight + barHeight / 4;
+            float top = i * 2 * barHeight;
             float left = 0; //bars start from the left edge
             float right = (values[i] / maxValue) * maxBarWidth; //width of the bar
             float bottom = top + barHeight;
