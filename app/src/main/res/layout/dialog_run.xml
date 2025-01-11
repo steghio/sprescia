@@ -22,6 +22,17 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:hint="@string/dialog_km"
-        android:inputType="number" />
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/editTextTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:inputType="time"
+        android:hint="@string/dialog_time"
+        android:focusable="false"
+        android:clickable="true"
+        android:layout_marginTop="16dp" />
 
 </LinearLayout>

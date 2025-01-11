@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".ui.run.RunFragment">
 
-    <!-- todo context should be per fragment not reused like this -->
-
     <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

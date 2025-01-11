@@ -4,7 +4,7 @@
     <string name="title_stats">Statistics</string>
     <string name="dialog_date">Date:</string>
     <string name="dialog_km">Km:</string>
-    <string name="dialog_Time">Time:</string>
+    <string name="dialog_time">Time:</string>
     <string name="desc_km">km</string>
     <string name="desc_time">time</string>
     <string name="desc_kmh">km/h</string>

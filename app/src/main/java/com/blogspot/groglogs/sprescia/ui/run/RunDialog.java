@@ -9,6 +9,7 @@ import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.model.view.RunViewItem;
 import com.blogspot.groglogs.sprescia.ui.dialog.AbstractDialog;
+import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
 
@@ -26,9 +27,9 @@ public class RunDialog extends AbstractDialog {
         this.position = position;
 
         this.editTextKm.setText(String.valueOf(f.getKm()));
-        //todo hours, minutes
 
         this.addDatePicker(context, f.getDate());
+        this.addTimePicker(context, f.getHours(), f.getMinutes());
     }
 
     public View.OnClickListener getSubmitButtonWithValidation(AlertDialog d, boolean isUpdate){
@@ -47,12 +48,23 @@ public class RunDialog extends AbstractDialog {
                 isError = true;
             }
 
-            //todo get time
-
             try{
                 date = this.getDate();
             } catch (Exception e){
                 this.editTextDate.setError("Invalid Date");
+                isError = true;
+            }
+
+            try{
+                hours = this.getHours();
+                minutes = this.getMinutes();
+            } catch (Exception e){
+                this.editTextTime.setError("Invalid Time");
+                isError = true;
+            }
+
+            if(hours <= 0 && minutes <= 0){
+                this.editTextTime.setError("Invalid Time");
                 isError = true;
             }
 

@@ -2,6 +2,7 @@ package com.blogspot.groglogs.sprescia.ui.dialog;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.EditText;
 
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.ui.adapter.AbstractAdapter;
-import com.blogspot.groglogs.sprescia.util.DateUtils;
+import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
 
@@ -22,6 +23,7 @@ public abstract class AbstractDialog {
     protected int position;
     protected final EditText editTextKm;
     protected final EditText editTextDate;
+    protected final EditText editTextTime;
     protected final AbstractAdapter adapter;
 
     public AbstractDialog(Context context, AbstractAdapter adapter, int dialog){
@@ -34,6 +36,7 @@ public abstract class AbstractDialog {
 
         this.editTextKm = dialogView.findViewById(R.id.editTextKm);
         this.editTextDate = dialogView.findViewById(R.id.editTextDate);
+        this.editTextTime = dialogView.findViewById(R.id.editTextTime);
 
         this.adapter = adapter;
     }
@@ -43,7 +46,15 @@ public abstract class AbstractDialog {
     }
 
     public LocalDate getDate(){
-        return DateUtils.fromString(this.editTextDate.getText().toString());
+        return DateTimeUtils.fromString(this.editTextDate.getText().toString());
+    }
+
+    public int getHours(){
+        return DateTimeUtils.hoursFromString(this.editTextTime.getText().toString());
+    }
+
+    public int getMinutes(){
+        return DateTimeUtils.minutesFromString(this.editTextTime.getText().toString());
     }
 
     /**
@@ -58,13 +69,33 @@ public abstract class AbstractDialog {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     context,
                     (view, selectedYear, selectedMonth, selectedDay) -> {
-                        this.editTextDate.setText(DateUtils.stringFrom(selectedYear, selectedMonth + 1, selectedDay));
+                        this.editTextDate.setText(DateTimeUtils.stringFrom(selectedYear, selectedMonth + 1, selectedDay));
                     },
                     date.getYear(),
                     date.getMonthValue() - 1,
                     date.getDayOfMonth()
             );
             datePickerDialog.show();
+        });
+    }
+
+    /**
+     * @param context
+     * @param hours
+     * @param minutes
+     */
+    public void addTimePicker(Context context, int hours, int minutes){
+        this.editTextTime.setText(DateTimeUtils.timeStringFrom(hours, minutes));
+
+        this.editTextTime.setOnClickListener(v -> {
+            TimePickerDialog timePickerDialog = new TimePickerDialog(
+                    context,
+                    (view, hourOfDay, minute) -> this.editTextTime.setText(DateTimeUtils.timeStringFrom(hourOfDay, minute)),
+                    hours,
+                    minutes,
+                    true
+            );
+            timePickerDialog.show();
         });
     }
 

@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.activity.CreateDocumentActivity;
-import com.blogspot.groglogs.sprescia.util.DateUtils;
+import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
 
@@ -35,7 +35,7 @@ public class RunViewItem extends AbstractViewItem {
     }
 
     public int getKmIconResId(){
-        return R.drawable.ic_odometer_24dp;
+        return R.drawable.ic_path_24dp;
     }
 
     public int getTimeIconResId(){
@@ -92,7 +92,7 @@ public class RunViewItem extends AbstractViewItem {
                 Double.parseDouble(split[1]),
                 Integer.parseInt(split[2]),
                 Integer.parseInt(split[3]),
-                DateUtils.fromString(split[4])
+                DateTimeUtils.fromString(split[4])
         );
     }
 }

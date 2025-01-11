@@ -16,6 +16,7 @@ import com.blogspot.groglogs.sprescia.model.view.RunViewItem;
 import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.storage.db.repository.RunRepository;
 import com.blogspot.groglogs.sprescia.ui.adapter.AbstractAdapter;
+import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 import com.blogspot.groglogs.sprescia.util.StringUtils;
 
 import java.time.LocalDate;
@@ -63,7 +64,7 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
         holder.getKmIconImageView().setImageResource(item.getKmIconResId());
         holder.getKmTextView().setText(StringUtils.decimal2String2Precision(item.getKm()) + " km");
         holder.getTimeIconImageView().setImageResource(item.getTimeIconResId());
-        holder.getTimeTextView().setText(item.getHours() + ":" + item.getMinutes());
+        holder.getTimeTextView().setText(DateTimeUtils.timeStringFrom(item.getHours(), item.getMinutes()));
         holder.getDateTextView().setText(item.getDate().toString());
 
         int img;
@@ -81,7 +82,7 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
         }
 
         holder.getKmhIconImageView().setImageResource(img);
-        holder.getKmhTextView().setText(StringUtils.decimal2String2Precision(kmh));
+        holder.getKmhTextView().setText(StringUtils.decimal2String2Precision(kmh) + " km/h");
 
         holder.getEditButton().setOnClickListener(view -> {
                 Toast.makeText(view.getContext(), "EDIT ID: " + item.getId() + " - POS: " + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();
@@ -110,7 +111,7 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
 
         List<RunItem> entities = loadAndCalculateKmh();
 
-        for(int i = entities.size() - 1; i >= 0; i--){
+        for(int i = 0; i < entities.size(); i++){
             addEntity(entities.get(i));
         }
     }
@@ -202,6 +203,7 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
         RunDialog runDialog = new RunDialog(context, this);
 
         runDialog.addDatePicker(context, LocalDate.now());
+        runDialog.addTimePicker(context, 0, 0);
 
         AlertDialog dialog = new AlertDialog.Builder(context)
                 .setTitle("Enter Run Details")
