@@ -11,6 +11,7 @@ import com.blogspot.groglogs.sprescia.util.StringUtils;
 
 import lombok.Setter;
 
+//todo draw horizontal and not vertical, then display desc
 public class BarChartView extends View {
 
     private Paint barPaint;
@@ -56,20 +57,20 @@ public class BarChartView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float barWidth = getWidth() / (values.length * 2f); //space for each bar
-        float maxHeight = getHeight() * 0.6f; //reserve 60% of the height for bars
+        float maxBarWidth = getWidth() * 0.8f; //reserve 80% of the width for bars
         float maxValue = getMaxValue(values); //get the maximum value in the dataset
 
-        //calculate the height available for drawing, considering the bottom navigation
-        float reservedBottomSpace = bottomNavigationHeight + 100; //spece for labels and padding
-        float chartBottom = getHeight() - reservedBottomSpace;
+        //calculate the height available for drawing
+        float reservedBottomSpace = bottomNavigationHeight + 50; //bottom menu + padding
+        float chartHeight = getHeight() - reservedBottomSpace;
+        float barHeight = chartHeight / (values.length * 2f); //space for each bar (and gaps)
 
         for (int i = 0; i < values.length; i++) {
             //calculate bar dimensions
-            float left = i * 2 * barWidth + barWidth / 4;
-            float right = left + barWidth;
-            float top = chartBottom - ((values[i] / maxValue) * maxHeight); //top of the bar
-            //bottom is already set by the caller considering the navigation menu space
+            float top = i * 2 * barHeight + barHeight / 4;
+            float left = 0; //bars start from the left edge
+            float right = (values[i] / maxValue) * maxBarWidth; //width of the bar
+            float bottom = top + barHeight;
 
             Paint paint = barPaint;
             if(i > 0) {
@@ -80,11 +81,16 @@ public class BarChartView extends View {
                 }
             }
 
-            canvas.drawRect(left, top, right, chartBottom, paint);
+            canvas.drawRect(left, top, right, bottom, paint);
 
-            //top of bar label (value)
-            float textX = left + barWidth / 2; //center the text on the bar
-            float textY = top - 20; //position the text slightly above the bar
+            //show label on the left of the bar
+            float labelX = left + 100;
+            float textY = top + barHeight / 2 + 15; //center the text vertically in the bar
+
+            canvas.drawText(labels[i], labelX, textY, textPaint);
+
+            //show value label inside or at the end of the bar
+            float textX = Math.max(right + 50, 300); //text to the right of the bar or spaced from the label
             String label = "";
             switch (barChartType){
                 case SPEED -> label = " km/h";
@@ -93,12 +99,6 @@ public class BarChartView extends View {
             }
 
             canvas.drawText(StringUtils.decimal2String2Precision(values[i]) + label, textX, textY, textPaint);
-
-            //bottom of bar label
-            textX = left + barWidth / 2; //center the text on the bar
-            textY = getHeight() - bottomNavigationHeight - 50; //position the text slightly below the bar, considering bottom menu
-
-            canvas.drawText(labels[i], textX, textY, textPaint);
         }
     }
 

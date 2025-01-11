@@ -14,6 +14,7 @@ import com.blogspot.groglogs.sprescia.ui.stats.StatsAdapter;
 
 import lombok.AllArgsConstructor;
 
+//todo buttons for averages per month view
 @AllArgsConstructor
 public class StatsTopMenu implements MenuProvider {
 
