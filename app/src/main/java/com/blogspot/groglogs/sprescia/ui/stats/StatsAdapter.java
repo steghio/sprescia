@@ -1,21 +1,11 @@
 package com.blogspot.groglogs.sprescia.ui.stats;
 
 import android.app.Application;
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.model.view.RunViewItem;
 import com.blogspot.groglogs.sprescia.storage.db.repository.RunRepository;
-import com.blogspot.groglogs.sprescia.ui.adapter.AbstractAdapter;
-import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +16,7 @@ import lombok.Getter;
 public class StatsAdapter {
 
     @Getter
-    private List<RunViewItem> items;
+    private final List<RunViewItem> items;
 
     private final RunRepository runRepository;
 

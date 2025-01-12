@@ -10,8 +10,11 @@
     <string name="desc_time">time</string>
     <string name="desc_kmh">km/h</string>
     <string name="desc_steps">steps</string>
+    <string name="desc_add">add</string>
     <string name="desc_edit">edit</string>
     <string name="desc_delete">delete</string>
+    <string name="display_km">%1.2f km</string>
+    <string name="display_kmh">%1.2f km/h</string>
     <string name="menu_import">Import</string>
     <string name="menu_export">Export</string>
     <string name="menu_steps">Steps</string>

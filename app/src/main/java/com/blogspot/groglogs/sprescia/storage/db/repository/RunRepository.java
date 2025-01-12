@@ -30,8 +30,8 @@ public class RunRepository {
         return AppDatabase.getDatabaseWriteExecutor().submit(runDao::getAllItemsByDateAsc).get();
     }
 
-    public long insert(RunItem entity) throws ExecutionException, InterruptedException {
-        return AppDatabase.getDatabaseWriteExecutor().submit(() -> runDao.insert(entity)).get();
+    public void insert(RunItem entity) throws ExecutionException, InterruptedException {
+        AppDatabase.getDatabaseWriteExecutor().execute(() -> runDao.insert(entity));
     }
 
     public void delete(long id) {

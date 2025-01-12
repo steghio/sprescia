@@ -15,7 +15,6 @@ import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.model.view.RunViewItem;
 import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.storage.db.repository.RunRepository;
-import com.blogspot.groglogs.sprescia.ui.adapter.AbstractAdapter;
 import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 import com.blogspot.groglogs.sprescia.util.StringUtils;
 
@@ -28,7 +27,9 @@ import java.util.concurrent.ExecutionException;
 
 import lombok.Getter;
 
-public class RunAdapter extends AbstractAdapter<RunViewHolder> {
+public class RunAdapter extends RecyclerView.Adapter<RunViewHolder> {
+
+    private final RecyclerView recyclerView;
 
     @Getter
     private List<RunViewItem> items;
@@ -55,14 +56,13 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
         return new RunViewHolder(view);
     }
 
-    //todo use strings with placeholders
     @Override
     public void onBindViewHolder(@NonNull RunViewHolder holder, int position) {
         RunViewItem item = items.get(position);
         holder.getStepsIconImageView().setImageResource(item.getStepsIconResId());
-        holder.getStepsTextView().setText(String.valueOf(item.getSteps()));
+        holder.getStepsTextView().setText(StringUtils.formatIntegerWithThousandSeparator(item.getSteps()));
         holder.getKmIconImageView().setImageResource(item.getKmIconResId());
-        holder.getKmTextView().setText(StringUtils.decimal2String2Precision(item.getKm()) + " km");
+        holder.getKmTextView().setText(recyclerView.getContext().getString(R.string.display_km, item.getKm()));
         holder.getTimeIconImageView().setImageResource(item.getTimeIconResId());
         holder.getTimeTextView().setText(DateTimeUtils.timeStringFrom(item.getHours(), item.getMinutes()));
         holder.getDateTextView().setText(item.getDate().toString());
@@ -82,7 +82,7 @@ public class RunAdapter extends AbstractAdapter<RunViewHolder> {
         }
 
         holder.getKmhIconImageView().setImageResource(img);
-        holder.getKmhTextView().setText(StringUtils.decimal2String2Precision(kmh) + " km/h");
+        holder.getKmhTextView().setText(recyclerView.getContext().getString(R.string.display_kmh, kmh));
 
         holder.getEditButton().setOnClickListener(view -> {
                 Toast.makeText(view.getContext(), "EDIT ID: " + item.getId() + " - POS: " + holder.getAdapterPosition(), Toast.LENGTH_SHORT).show();

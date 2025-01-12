@@ -9,7 +9,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.blogspot.groglogs.sprescia.model.view.AbstractViewItem;
+import com.blogspot.groglogs.sprescia.model.view.RunViewItem;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -32,7 +32,7 @@ public class CreateDocumentActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         if (data != null) {
                             Uri uri = data.getData();
-                            // Once the user selects a file, write content to it
+
                             if (uri != null) {
                                 writeToFile(uri);
                             }
@@ -60,16 +60,14 @@ public class CreateDocumentActivity extends AppCompatActivity {
     }
 
     private void writeToFile(Uri uri) {
-        try {
-            OutputStream outputStream = getContentResolver().openOutputStream(uri);
+        try(OutputStream outputStream = getContentResolver().openOutputStream(uri)){
 
-            List<AbstractViewItem> items = getIntent().getParcelableArrayListExtra(DATA, AbstractViewItem.class);
+            List<RunViewItem> items = getIntent().getParcelableArrayListExtra(DATA, RunViewItem.class);
 
-            for(AbstractViewItem item : items){
+            for(RunViewItem item : items){
                 outputStream.write(item.toCsv().getBytes());
             }
 
-            outputStream.close();
         } catch (IOException e) {
             Toast.makeText(this, "Failed to write the file", Toast.LENGTH_SHORT).show();
         }

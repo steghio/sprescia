@@ -7,26 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 
 import com.blogspot.groglogs.sprescia.R;
-import com.blogspot.groglogs.sprescia.ui.fragment.AbstractFragment;
 import com.blogspot.groglogs.sprescia.ui.menu.StatsTopMenu;
-import com.blogspot.groglogs.sprescia.ui.menu.TopMenu;
 
 //todo top menu choose speed vs distance chart
-public class StatsFragment extends AbstractFragment {
-
-    private StatsAdapter statsAdapter;
+public class StatsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.stats, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_stats, container, false);
 
         BarChartView barChartView = rootView.findViewById(R.id.bar_chart);
 
-        statsAdapter = new StatsAdapter(getActivity().getApplication(), barChartView);
+        StatsAdapter statsAdapter = new StatsAdapter(getActivity().getApplication(), barChartView);
 
         requireActivity().addMenuProvider(new StatsTopMenu(requireContext(), statsAdapter), getViewLifecycleOwner(), Lifecycle.State.RESUMED);
         requireActivity().invalidateOptionsMenu();

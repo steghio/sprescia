@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.activity.CreateDocumentActivity;
-import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 import com.blogspot.groglogs.sprescia.util.DateTimeUtils;
 
 import java.time.LocalDate;
@@ -15,7 +14,7 @@ import lombok.Data;
 
 @AllArgsConstructor
 @Data
-public class RunViewItem extends AbstractViewItem {
+public class RunViewItem implements Parcelable {
 
     private Long id;
     private double km;

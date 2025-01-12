@@ -10,15 +10,17 @@ import com.blogspot.groglogs.sprescia.model.entity.RunItem;
 
 import java.util.List;
 
+//transaction annotation so that operations are immediately flushed and ui refresh picks always latest data
 @Dao
 public interface RunDao {
 
     @Query("SELECT * FROM run where id = :id")
     RunItem findById(Long id);
 
+    //make it return Long if we want generated ID of new entity in output
     @Transaction
     @Insert
-    long insert(RunItem runItem);
+    void insert(RunItem runItem);
 
     @Transaction
     @Query("DELETE FROM run WHERE id = :id")

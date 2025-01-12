@@ -14,18 +14,17 @@ import androidx.core.view.MenuProvider;
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.activity.CreateDocumentActivity;
 import com.blogspot.groglogs.sprescia.activity.ReadDocumentActivity;
-import com.blogspot.groglogs.sprescia.ui.adapter.AbstractAdapter;
+import com.blogspot.groglogs.sprescia.ui.run.RunAdapter;
 
 import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 
-//todo action search/filter
 @AllArgsConstructor
-public class TopMenu implements MenuProvider {
+public class RunTopMenu implements MenuProvider {
 
     private Context context;
-    private AbstractAdapter adapter;
+    private RunAdapter adapter;
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
