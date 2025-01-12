@@ -17,7 +17,6 @@ import com.blogspot.groglogs.sprescia.ui.stats.BarChartView;
 import com.blogspot.groglogs.sprescia.ui.stats.general.StatsAdapter;
 import com.blogspot.groglogs.sprescia.ui.stats.month.MonthStatsAdapter;
 
-//todo sort by date asc/desc
 public class AbstractStatsFragment extends Fragment {
 
     protected AbstractStatsAdapter adapter;

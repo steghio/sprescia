@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_sort"
+        android:visible="true"
+        android:icon="@drawable/ic_sort_asc_24dp"
+        android:title="@string/menu_sort"
+        app:showAsAction="always" />
+
     <item
         android:id="@+id/action_steps"
         android:visible="true"

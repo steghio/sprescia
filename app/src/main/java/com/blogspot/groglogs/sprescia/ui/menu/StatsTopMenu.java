@@ -12,13 +12,14 @@ import androidx.core.view.MenuProvider;
 import com.blogspot.groglogs.sprescia.R;
 import com.blogspot.groglogs.sprescia.ui.adapter.AbstractStatsAdapter;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StatsTopMenu implements MenuProvider {
 
-    private Context context;
-    private AbstractStatsAdapter adapter;
+    private final Context context;
+    private final AbstractStatsAdapter adapter;
+    private boolean isAscending = true;
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {
@@ -44,6 +45,14 @@ public class StatsTopMenu implements MenuProvider {
         } else if (id == R.id.action_steps) {
             Toast.makeText(context, "MENU STEPS", Toast.LENGTH_SHORT).show();
             adapter.showStepsChart();
+            return true;
+        } else if (id == R.id.action_sort) {
+            Toast.makeText(context, "MENU SORT", Toast.LENGTH_SHORT).show();
+
+            menuItem.setIcon(isAscending ? R.drawable.ic_sort_desc_24dp : R.drawable.ic_sort_asc_24dp);
+            isAscending = !isAscending;
+
+            adapter.invertSort();
             return true;
         }
         return false;

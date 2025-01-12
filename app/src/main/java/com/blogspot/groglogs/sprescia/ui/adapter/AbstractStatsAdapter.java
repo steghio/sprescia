@@ -60,4 +60,8 @@ public abstract class AbstractStatsAdapter {
     public abstract void showTimeChart();
 
     public abstract void showStepsChart();
+
+    public void invertSort(){
+        barChartView.invertSort();
+    }
 }

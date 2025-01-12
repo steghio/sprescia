@@ -9,6 +9,9 @@ import android.view.View;
 
 import com.blogspot.groglogs.sprescia.util.StringUtils;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 import lombok.Setter;
 
 public class BarChartView extends View {
@@ -119,5 +122,20 @@ public class BarChartView extends View {
         }
 
         return max;
+    }
+
+    public void invertSort(){
+        float[] invertedValues = new float[values.length];
+        String[] invertedLabels = new String[values.length];
+
+        for(int i = 0; i < values.length; i++){
+            invertedValues[values.length - 1 - i] = values[i];
+            invertedLabels[values.length - 1 - i] = labels[i];
+        }
+
+        values = invertedValues;
+        labels = invertedLabels;
+
+        this.invalidate();
     }
 }
