@@ -49,7 +49,7 @@ public class AbstractStatsFragment extends Fragment {
         barChartView.setBottomNavigationHeight(bottomNavigationHeight);
 
         adapter.loadAllItems();
-        adapter.showSpeedChart();
+        adapter.showDistChart();
 
         return rootView;
     }
