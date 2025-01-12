@@ -20,7 +20,7 @@ public class RunItem {
     private long id;
 
     @ColumnInfo(name = "km")
-    private final double km;
+    private final float km;
 
     @ColumnInfo(name = "steps")
     private final int steps;
@@ -34,7 +34,7 @@ public class RunItem {
     @ColumnInfo(name = "date")
     private final LocalDate date;
 
-    public double calculateKmH(){
-        return km / (hours + ((double) minutes / 60));
+    public float calculateKmH(){
+        return km / (hours + ((float) minutes / 60));
     }
 }

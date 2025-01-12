@@ -60,7 +60,7 @@ public class RunDialog {
 
     public View.OnClickListener getSubmitButtonWithValidation(AlertDialog d, boolean isUpdate){
         return v -> {
-            double km = -1;
+            float km = -1;
             int steps = 0;
             int hours = 0;
             int minutes = 0;
@@ -133,8 +133,8 @@ public class RunDialog {
         return Integer.parseInt(this.editTextSteps.getText().toString());
     }
 
-    public double getKm(){
-        return Double.parseDouble(this.editTextKm.getText().toString());
+    public float getKm(){
+        return Float.parseFloat(this.editTextKm.getText().toString());
     }
 
     public LocalDate getDate(){

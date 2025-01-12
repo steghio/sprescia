@@ -17,14 +17,14 @@ import lombok.Data;
 public class RunViewItem implements Parcelable {
 
     private Long id;
-    private double km;
+    private float km;
     private int steps;
     private int hours;
     private int minutes;
     private LocalDate date;
 
-    public double getKmh(){
-        return km / (hours + ((double) minutes / 60));
+    public float getKmh(){
+        return km / (hours + ((float) minutes / 60));
     }
 
     public float getTimeAsDecimal(){
@@ -51,7 +51,7 @@ public class RunViewItem implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(id);
-        dest.writeDouble(km);
+        dest.writeFloat(km);
         dest.writeInt(steps);
         dest.writeInt(hours);
         dest.writeInt(minutes);
@@ -60,7 +60,7 @@ public class RunViewItem implements Parcelable {
 
     protected RunViewItem(Parcel in) {
         id = in.readLong();
-        km = in.readDouble();
+        km = in.readFloat();
         steps = in.readInt();
         hours = in.readInt();
         minutes = in.readInt();
@@ -92,7 +92,7 @@ public class RunViewItem implements Parcelable {
         String[] split = csv.split(CreateDocumentActivity.CSV_SEPARATOR);
 
         return new RunViewItem(null,
-                Double.parseDouble(split[1]),
+                Float.parseFloat(split[1]),
                 Integer.parseInt(split[2]),
                 Integer.parseInt(split[3]),
                 Integer.parseInt(split[4]),

@@ -2,6 +2,7 @@
     <string name="app_name">Sprescia</string>
     <string name="title_run">Run</string>
     <string name="title_stats">Statistics</string>
+    <string name="title_month">Month</string>
     <string name="dialog_date">Date:</string>
     <string name="dialog_steps">Steps:</string>
     <string name="dialog_km">Km:</string>

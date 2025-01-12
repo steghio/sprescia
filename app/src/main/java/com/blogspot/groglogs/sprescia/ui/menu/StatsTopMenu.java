@@ -10,16 +10,15 @@ import androidx.annotation.NonNull;
 import androidx.core.view.MenuProvider;
 
 import com.blogspot.groglogs.sprescia.R;
-import com.blogspot.groglogs.sprescia.ui.stats.StatsAdapter;
+import com.blogspot.groglogs.sprescia.ui.adapter.AbstractStatsAdapter;
 
 import lombok.AllArgsConstructor;
 
-//todo buttons for averages per month view (avg per month)
 @AllArgsConstructor
 public class StatsTopMenu implements MenuProvider {
 
     private Context context;
-    private StatsAdapter adapter;
+    private AbstractStatsAdapter adapter;
 
     @Override
     public void onCreateMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater) {

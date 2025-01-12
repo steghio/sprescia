@@ -13,7 +13,13 @@
 
     <fragment
         android:id="@+id/navigation_stats"
-        android:name="com.blogspot.groglogs.sprescia.ui.stats.StatsFragment"
+        android:name="com.blogspot.groglogs.sprescia.ui.stats.general.StatsFragment"
         android:label="@string/title_stats"
         tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/navigation_month"
+        android:name="com.blogspot.groglogs.sprescia.ui.stats.month.MonthStatsFragment"
+        android:label="@string/title_month"
+        tools:layout="@layout/fragment_month_stats" />
 </navigation>

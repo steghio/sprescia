@@ -11,4 +11,9 @@
         android:icon="@drawable/ic_barchart_24dp"
         android:title="@string/title_stats" />
 
+    <item
+        android:id="@+id/navigation_month"
+        android:icon="@drawable/ic_calendar_24dp"
+        android:title="@string/title_month" />
+
 </menu>

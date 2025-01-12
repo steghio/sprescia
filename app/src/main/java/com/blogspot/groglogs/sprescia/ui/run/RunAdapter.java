@@ -36,7 +36,7 @@ public class RunAdapter extends RecyclerView.Adapter<RunViewHolder> {
 
     //todo if possible to track better structure to modify only what necessary on data changes to display correct kmh comparison
     //key = item position, value = kmh for item
-    private Map<Integer,Double> kmhMap;
+    private Map<Integer,Float> kmhMap;
 
     private final RunRepository runRepository;
 
@@ -68,8 +68,8 @@ public class RunAdapter extends RecyclerView.Adapter<RunViewHolder> {
         holder.getDateTextView().setText(item.getDate().toString());
 
         int img;
-        Double kmh = kmhMap.get(position);
-        Double prevKmh = kmhMap.get(position + 1);
+        Float kmh = kmhMap.get(position);
+        Float prevKmh = kmhMap.get(position + 1);
 
         if(prevKmh == null || Math.abs(prevKmh - kmh) == 0.0){
             img = R.drawable.ic_chart_flat_24dp;

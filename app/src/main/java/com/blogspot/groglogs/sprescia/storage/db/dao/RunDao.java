@@ -34,7 +34,7 @@ public interface RunDao {
     @Update
     void update(RunItem runItem);
 
-    //todo what if 2 runs in same day?
+    //multiple items in same day are sorted by insertion time..
     @Transaction
     @Query("SELECT * FROM run ORDER BY date DESC")
     List<RunItem> getAllItemsByDateDesc();
